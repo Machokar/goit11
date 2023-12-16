@@ -73,12 +73,12 @@ async function loadPics(page = 1) {
 function firstbutton(event) {
   event.preventDefault();
   List.innerHTML = '';
-  pageNumber = 1;
+  pageN = 1;
   loadPics();
   buttonLoadMore.setAttribute('hidden', true);
 }
 function secondbutton(event) {
   event.preventDefault();
-  pageNumber += 1;
+  pageN += 1;
   loadPics(pageN);
 }

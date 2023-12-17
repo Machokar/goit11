@@ -49,10 +49,15 @@ async function loadPics(page = 1) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
+  } else if (page === 1) {
+    Notiflix.Notify.success(
+      `Hooray! We found ${response.data.totalHits} images.`
+    );
   } else {
-    if (page === 1) {
-      Notiflix.Notify.success(
-        `Hooray! We found ${response.data.totalHits} images.`
+    if (page !== 1) {
+      buttonLoadMore.setAttribute('hidden', true);
+      Notiflix.Notify.info(
+        "We're sorry, but you've reached the end of search results."
       );
     }
   }

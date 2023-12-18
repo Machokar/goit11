@@ -1,5 +1,6 @@
 import Notiflix from 'notiflix';
 import axios from 'axios';
+import SimpleLightbox from 'simplelightbox';
 const Urlb = 'https://pixabay.com/api/';
 const searchForm = document.querySelector('form.search-form');
 const List = document.querySelector('div.gallery');

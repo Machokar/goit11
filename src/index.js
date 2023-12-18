@@ -6,6 +6,10 @@ const List = document.querySelector('div.gallery');
 const buttonLoadMore = document.querySelector('div.load-wrapper');
 buttonLoadMore.setAttribute('hidden', true);
 let pageN;
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: '250',
+});
 searchForm.addEventListener('submit', firstbutton);
 buttonLoadMore.addEventListener('click', secondbutton);
 async function loadPics(page = 1) {
@@ -49,20 +53,23 @@ async function loadPics(page = 1) {
     Notiflix.Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-  } else if (page === 1) {
-    Notiflix.Notify.success(
-      `Hooray! We found ${response.data.totalHits} images.`
-    );
   } else {
-    if (page !== 1) {
-      buttonLoadMore.setAttribute('hidden', true);
-      Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results."
+    if (page === 1) {
+      Notiflix.Notify.success(
+        `Hooray! We found ${response.data.totalHits} images.`
       );
     }
   }
+  if ((response.data.totalHits <= page * 40) & (page !== 1)) {
+    buttonLoadMore.setAttribute('hidden', true);
+    Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
+  }
   List.insertAdjacentHTML('beforeend', markup);
+
   lightbox.refresh();
+
   if (page > 1) {
     const { height: cardHeight } = document
       .querySelector('.gallery')
